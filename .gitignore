@@ -2,4 +2,5 @@
 venv/
 __pycache__/
 .env
-"@ | Out-File -Encoding utf8 .gitignore
+.streamlit/secrets.toml
+"@ | Out-File -Encoding ascii .gitignore

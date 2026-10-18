@@ -13,14 +13,23 @@ from chat_utils import make_chunks, parse_chat, sample_transcript, sender_stats
 st.set_page_config(page_title="AI Relationship Counsellor", page_icon="❤️", layout="centered")
 
 # ---------- API key ----------
-API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+def get_api_key() -> str | None:
+    """Look in Streamlit secrets (.streamlit/secrets.toml or the Cloud 'Secrets' box) first, then env vars."""
+    try:
+        key = st.secrets.get("GEMINI_API_KEY") or st.secrets.get("GOOGLE_API_KEY")
+    except Exception:  # no secrets file present
+        key = None
+    return key or os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+
+
+API_KEY = get_api_key()
 if not API_KEY:
     st.error(
         "GEMINI_API_KEY not found.\n\n"
-        "Get a free key at https://aistudio.google.com/apikey, then:\n"
-        "- On Hugging Face: Space → Settings → Variables and secrets → New secret\n"
-        "  Name: GEMINI_API_KEY | Value: your key, then restart the Space.\n"
-        "- Locally (PowerShell): $env:GEMINI_API_KEY=\"your_key\""
+        "Get a free key at https://aistudio.google.com/apikey, then add it as a Streamlit secret:\n"
+        "- Locally: create the file .streamlit/secrets.toml containing\n"
+        "  GEMINI_API_KEY = \"your_key\"\n"
+        "- Streamlit Cloud: App → Settings → Secrets, paste the same line, then Save."
     )
     st.stop()
 
