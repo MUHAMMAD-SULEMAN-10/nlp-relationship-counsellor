@@ -1,5 +1,5 @@
 ---
-title: AI Relationship Counsellor
+title: NLP Relationship Counsellor
 emoji: ❤️
 colorFrom: red
 colorTo: blue
@@ -9,7 +9,7 @@ pinned: false
 short_description: Upload a WhatsApp chat and get an AI relationship health analysis
 ---
 
-# ❤️ AI Relationship Counsellor
+# ❤️ NLP Relationship Counsellor
 
 Upload an exported WhatsApp chat (.txt) and get an AI read on how healthy it looks.
 
